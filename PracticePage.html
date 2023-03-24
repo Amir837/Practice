@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Practice Page</title>
+
+        <link rel="stylesheet" type="text/css" href="css/body.css">
+
+        <link rel="stylesheet" type="text/css" href="css/PracticePage/div-body.css">
+        <link rel="stylesheet" type="text/css" href="css/PracticePage/topMenu.css">
+        <link rel="stylesheet" type="text/css" href="css/PracticePage/slideshow.css">
+        <link rel="stylesheet" type="text/css" href="css/PracticePage/wrapper.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    </head>
+
+    <body>
+        <div class="div-body" style="max-width: 1250px; margin-left: auto; margin-right: auto;">
+            <div class="topMenu">
+                <header>
+                    <div class="header-container">
+                        <div class="header-logo">
+                            <div class="div-header">
+                                <h1 class="header-title">Practice</h1>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                <nav class="menuNav">
+                    <!--::before-->
+                    <ul class="menuUl">
+                        <li class="menuUl-item"><a class="menuUl-link  temp-size" href="index.html">Home</a></li>
+                        <!--Now it's the active item, but script will be required in future-->
+                        <li class="menuUl-item menuUl-active-item"><a class="menuUl-link menuUl-active-link  temp-size" href="PracticePage.html">Practice</a></li>
+                        <li class="menuUl-item"><a class="menuUl-link  temp-size" href="About.html">About</a></li>
+                        <li class="menuUl-item"><a class="menuUl-link  temp-size" href="Contact.html">Contact</a></li>
+                    </ul>
+                    <!--::after-->
+                </nav>    
+            </div>
+
+            <div id="slideShow">
+                <div class="temp" data-key="0" data-text="" data-subtext="" data-buttontext="" data-buttontarget="_self" data-backdrop="0" data-layout="no-text" style="background-position: 50% 50%; position: relative; top: -10px; background-image: url('https://assets.jwwb.nl/assets/templates/clean/books/img/heroimage2.jpg?enable-io=true&amp;enable=upscale&amp;crop=1920%2C576%2Cx0%2Cy0%2Csafe');" data-background-position-x="0.5" data-background-position-y="0.5" class="jw-slideshow-slide-content jw-slideshow-slide-content-cover jw-slideshow--no-backdrop "></div>
+            </div>
+    
+            <div class="wrapper">
+                <div>
+                    <h3 style="text-align: center; margin-bottom: 30px;">Transform this sentence to a different tense</h3>
+                </div>
+                
+                <div>
+                    <div id="chat" style="width: 500px; margin:auto;">
+                        <div id="sentence-to-transform" style="color: #54524f;"></div>
+                        <div id="messages"></div>
+                        <input type="text" id="message-input">
+                        <div></div>
+                        <button id="send-chat-button">Send</button>
+                    </div>
+                </div>
+
+                <script>
+                    const sentences = ["She walks to the store every day.", "2-nd sentence"];
+                    const sentenceToTransform = document.querySelector('#sentence-to-transform');
+                    sentenceToTransform.textContent = sentences[0];
+                </script>
+        
+                <script>
+                    $(function() {
+                        function sendMessage() {
+                        var message = $('#message-input').val();
+                        $('#messages').append('<div style="color: green; text-align: right;">' + message + '</div>');
+                        $('#message-input').val('');
+        
+                        fetch(`http://localhost:7024/api/EnglishTeacher?sentence=${sentenceToTransform.textContent}&userInput=${message}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                const teachersResponse = document.querySelector('#teacher-response');
+                                $('#messages').append('<div style="color: #e7af5b">' + data.text + '</div>');
+                                console.log(data);
+                            })
+                            .catch(error => console.error(error));
+                        };
+        
+                        $('#send-chat-button').click(sendMessage);
+                    });
+                </script>
+    
+            </div>
+    
+            <footer>
+    
+            </footer>
+        </div>
+    </body>
+</html>
