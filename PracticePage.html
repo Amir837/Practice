@@ -70,7 +70,7 @@
                         $('#messages').append('<div style="color: green; text-align: right;">' + message + '</div>');
                         $('#message-input').val('');
         
-                        fetch(`checkenglish.azurewebsites.net/?sentence=${sentenceToTransform.textContent}&userInput=${message}`)
+                        fetch(`../../checkenglish.azurewebsites.net/?sentence=${sentenceToTransform.textContent}&userInput=${message}`)
                             .then(response => response.json())
                             .then(data => {
                                 const teachersResponse = document.querySelector('#teacher-response');
