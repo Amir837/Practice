@@ -58,7 +58,7 @@
                 </div>
 
                 <script>
-                    const sentences = ["She walks to the store every day.", "2-nd sentence"];
+                    const sentences = ["She goes for a walk every day.", "2-nd sentence"];
                     const sentenceToTransform = document.querySelector('#sentence-to-transform');
                     sentenceToTransform.textContent = sentences[0];
                 </script>
@@ -70,7 +70,9 @@
                         $('#messages').append('<div style="color: green; text-align: right;">' + message + '</div>');
                         $('#message-input').val('');
         
-                        fetch(`../../checkenglish.azurewebsites.net/?sentence=${sentenceToTransform.textContent}&userInput=${message}`)
+                        fetch(`https://flashenglish.azurewebsites.net/api/gptconnectionenglishtenseteacher?sentence=${sentenceToTransform.textContent}&userInput=${message}`)
+                        //fetch(`http://localhost:7071/api/gptConnectionEnglishTeacher?sentence=${sentenceToTransform.textContent}&userInput=${message}`)
+                        //fetch(`http://localhost:7024/api/EnglishTeacher?sentence=${sentenceToTransform.textContent}&userInput=${message}`)
                             .then(response => response.json())
                             .then(data => {
                                 const teachersResponse = document.querySelector('#teacher-response');
